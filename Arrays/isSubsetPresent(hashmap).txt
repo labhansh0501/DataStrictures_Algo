@@ -1,0 +1,154 @@
+Given two arrays: a1[0..n-1] of size n and a2[0..m-1] of size m, where both arrays may contain duplicate elements. The task is to determine whether array a2 is a subset of array a1. It's important to note that both arrays can be sorted or unsorted. Additionally, each occurrence of a duplicate element within an array is considered as a separate element of the set.
+
+SAMPLE INPUTS:
+
+Example 1:
+
+Input:
+a1[] = {11, 7, 1, 13, 21, 3, 7, 3}
+a2[] = {11, 3, 7, 1, 7}
+Output:
+Yes
+Explanation:
+a2[] is a subset of a1[]
+
+Example 2:
+
+Input:
+a1[] = {1, 2, 3, 4, 4, 5, 6}
+a2[] = {1, 2, 4}
+Output:
+Yes
+Explanation:
+a2[] is a subset of a1[]
+
+Example 3:
+
+Input:
+a1[] = {10, 5, 2, 23, 19}
+a2[] = {19, 5, 3}
+Output:
+No
+Explanation:
+a2[] is not a subset of a1[]
+ 
+
+Your Task:  
+You don't need to read input or print anything. Your task is to complete the function isSubset() which takes the array a1[], a2[], its size n and m as inputs and return "Yes" if arr2 is subset of arr1 else return "No" if arr2 is not subset of arr1.
+
+ 
+
+Expected Time Complexity: O(max(n,m))
+Expected Auxiliary Space: O(n)
+
+Constraints:
+1 <= n,m <= 105
+1 <= a1[i], a2[j] <= 106
+
+Solution :
+
+
+
+class Compute {
+    public String isSubset( long a1[], long a2[], long n, long m) {
+        
+            if (n < m) {
+            return "No";  // If size of a1 is less than a2, then a2 cannot be a subset of a1
+        }
+
+        if (areArraysSorted(a1) && areArraysSorted(a2)) {
+            return isSubsetSorted(a1, a2, n, m);
+        } else {
+            return isSubsetUnsorted(a1, a2, n, m);
+        }
+    }
+
+    private boolean areArraysSorted(long[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i - 1] > arr[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private String isSubsetSorted(long[] a1, long[] a2, long n, long m) {
+        int i = 0, j = 0;
+
+        while (i < n && j < m) {
+            if (a1[i] < a2[j]) {
+                i++;
+            } else if (a1[i] == a2[j]) {
+                i++;
+                j++;
+            } else {
+                return "No";
+            }
+        }
+
+        if (j == m) {
+            return "Yes";  // All elements of a2 are found in a1
+        } else {
+            return "No";   // Some elements of a2 are not found in a1
+        }
+    }
+
+    private String isSubsetUnsorted(long[] a1, long[] a2, long n, long m) {
+        Map<Long, Integer> frequencyMap = new HashMap<>();
+
+        for (long num : a1) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+
+        for (long num : a2) {
+            if (frequencyMap.containsKey(num) && frequencyMap.get(num) > 0) {
+                frequencyMap.put(num, frequencyMap.get(num) - 1);
+            } else {
+                return "No";
+            }
+        }
+
+        return "Yes";
+    }
+}
+
+
+
+ALGO:
+
+step 1 : In function "isSubset" , it is the function which is called by the main; it handels the base case in which is if the lenght of a1< lenght of a2 then straight away return false because if lenght of a2 is bigger then it cannot be the subset. it calls 2 fucntion which is "areArraysSorted" for both a1 & a2 and if both the funtion return true then it called the fucntion "isSubsetSorted" otherwise it will call "isSubsetUnsorted" .
+
+step 2: In fucntion "areArraysSorted" both the arrays get cheaked weather the inputed array is sorted or not and returns true or false accordingly.
+
+step 3 : in Function "isSubsetSorted" normal concept is used. There is the while loop when i and j are less than n , m, inside this loop we cheak each element one by one, we increment i when a1.element < a1.element, but we incrememnt both i and j when a1.elememnt == a2.element. if we that j == m we return "true" else return "false" because to cheak weather the subset is present if j runs as no of times as the lenght of m;
+
+step 4: if both the array is unsorted we use HASH MAPS to solev this problem. HASH MAPS is very greate DS as it helps us to solev the problem more efficently and error free. 
+
+FULL EXPLANATION :
+
+isSubsetUnsorted Function:
+The isSubsetUnsorted function is designed to check if a2 is a subset of a1 when both arrays are unsorted. It uses a HashMap to keep track of the frequency of each element in array a1. Here's a step-by-step explanation:
+
+HashMap Creation:
+
+Map<Long, Integer> frequencyMap = new HashMap<>();: This line creates a HashMap (frequencyMap) where keys are elements from array a1 (of type Long), and values are the frequency (count) of each element.
+Counting Frequencies:
+
+for (long num : a1) { frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1); }: This loop iterates through each element of a1. For each element (num), it updates the frequency in the frequencyMap. The getOrDefault method is used to safely handle cases where the element is not present in the map initially.
+Checking Subset:
+
+for (long num : a2) { if (frequencyMap.containsKey(num) && frequencyMap.get(num) > 0) { frequencyMap.put(num, frequencyMap.get(num) - 1); } else { return "No"; } }: This loop iterates through each element of a2. For each element (num), it checks whether it exists in frequencyMap and if the frequency is greater than 0. If so, it decreases the frequency in the map. If any element from a2 is not found in a1 or if its frequency is exhausted, the function returns "No," indicating that a2 is not a subset of a1.
+Return Result:
+
+return "Yes";: If the loop completes without any early returns, it means all elements of a2 were found in a1 with the required frequencies, so the function returns "Yes."
+HashMap:
+A HashMap is a data structure that stores key-value pairs. It allows you to associate a value with each unique key. In the context of this code:
+
+Key (Long): The unique elements from array a1.
+Value (Integer): The frequency (count) of each element in array a1.
+In the code, HashMap<Long, Integer> is used to efficiently keep track of the frequency of each element in a1. The put method is used to add or update the frequency of an element, and the get method is used to retrieve the current frequency. The getOrDefault method is a convenient way to handle the case when the key is not present in the map without causing a NullPointerException.
+
+
+
+
+

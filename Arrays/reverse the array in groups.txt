@@ -1,0 +1,82 @@
+Given an array arr[] of positive integers of size N. Reverse every sub-array group of size K.
+
+Note: If at any instance, there are no more subarrays of size greater than or equal to K, then reverse the last subarray (irrespective of its size). You shouldn't return any array, modify the given array in-place.
+
+SAMPLE INPUTS:
+
+Example 1:
+
+Input:
+N = 5, K = 3
+arr[] = {1,2,3,4,5}
+Output: 3 2 1 5 4
+Explanation: First group consists of elements
+1, 2, 3. Second group consists of 4,5.
+ 
+
+Example 2:
+
+Input:
+N = 4, K = 3
+arr[] = {5,6,8,9}
+Output: 8 6 5 9
+ 
+
+Your Task:
+You don't need to read input or print anything. The task is to complete the function reverseInGroups() which takes the array, N and K as input parameters and modifies the array in-place. 
+
+ 
+
+Expected Time Complexity: O(N)
+Expected Auxiliary Space: O(1)
+
+ 
+
+Constraints:
+1 ≤ N, K ≤ 107
+1 ≤ A[i] ≤ 1018
+
+
+SOLUTION:
+
+class Solution {
+    void reverseInGroup(ArrayList<Integer>arr,int n, int start, int end){
+        while(start < end)
+        {
+            int temp = arr.get(start);
+            arr.set(start,arr.get(end));
+            arr.set(end,temp);
+            start++;
+            end--;
+        }
+    }
+    void reverseInGroups(ArrayList<Integer> arr, int n, int k) {
+        for(int i = 0; i<n;i +=k)
+        {
+            if(i+k-1 < n)
+            {
+                reverseInGroup(arr,n,i,i+k-1);
+            }
+            else
+            {
+                reverseInGroup(arr,n,i,n-1);
+            }
+        }
+    }
+}
+
+
+
+
+STEPS TAKEN TO SOLVE THE PROBLEM:
+
+1) Added a function "REVERSEINGROUP" which takes an arrayList arr, size of the array starting index(start) and the ending index (end) 
+In between it have to reverse.
+2)the above function only reverse the array from the starting index and ending index provided,
+
+3) the next function is "REVERSEINGROUPS" takes the same array list arr, size of the the array, and the size of the sub_group as parameters and its job is 
+to pass the correct starting index and ending index to the above function
+
+3) the loop runs staring from 0 and i increments by +k time and the we pass the ending index as i+k-1 if it is less than k otherwise we pass ending index as 
+n-1.
+

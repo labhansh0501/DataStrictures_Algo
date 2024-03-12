@@ -1,0 +1,58 @@
+Given a string S consisting only '0's and '1's,  find the last index of the '1' present in it.
+
+ 
+
+Example 1:
+
+Input:
+S = 00001
+Output:
+4
+Explanation:
+Last index of  1 in given string is 4.
+ 
+
+Example 2:
+
+Input:
+0
+Output:
+-1
+Explanation:
+Since, 1 is not present, so output is -1.
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+SOLUTION:
+----------
+
+class Solution {
+    public int lastIndex( String s) {
+        // int index=-1;
+        for(int i=(s.length() - 1 );i>=0;i--)
+        {
+            // int  askey =(int )s.charAt(i);
+            // if( askey == 49)
+            // {
+            //     index= i;
+            //     break;
+            // }
+            
+            if(s.charAt(i)== '1')
+            return i;
+        }
+        
+        return -1;
+    }
+}
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+STEP:
+
+SO here we have to cheak the last index of 1 present in the last index of String, this question can be solved in two diffrent ways and the different ways are as follows:
+
+First we run the loop backwords which means i staring from lenght-1 of String and going upto 0,
+one we can find the ASCII value of each character and compare it with 49 which is the ascii equivalent of '1' and when ever we encounter the '1' first we return that index and otherwise we return -1(this approch is naive and have been wriiten in the above code in a commented part).
+
+Another approch is comparaing the value of s.charAt(i)=='1' in side the if condition and returning i. this is a good approch and with higher accuracy rate. we should not store the value of s.charAt(i) in any variable its NAIVE approch. 

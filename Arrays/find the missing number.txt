@@ -1,0 +1,82 @@
+Ritu has all numbers from 1 to n in an array arr of length n-1 except one number. You have to find which number, Ritu doesn't have from 1 to n.
+
+NOTE: Don't use Sorting
+
+Example 1:
+
+Input:
+n  =  4                                        
+arr = {1, 4, 3}
+Output: 2     
+Explanation:
+Ritu doesn't have number 2
+Example 2:
+
+Input:                        
+n = 5
+arr = {2, 5, 3, 1}
+Output: 4
+Explanation:
+Ritu doesn't have number 4 in her collection
+Your Task:  
+You don't need to read input or print anything. Your task is to complete the function missingNumber() which takes an integer n and an array arr of length n-1 as inputs and returns the missing number.
+
+Exected Time Complexity: O(n)
+Expected Auxiliary Space: O(1)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+SOLUTONS:
+---------
+
+SOLUTION NO 1:
+---------------
+class Solution {
+    public static int missingNumber(int n, int[] arr) {
+        Arrays.sort(arr);
+        int j=1;
+        for(int i=0;i<n-1;i++)
+        {
+            if(arr[i]!=j)
+            {
+                return j;
+            }
+            j++;
+            
+        }
+        
+        return j;
+    }
+}
+
+
+STEPS FOR SOLUTION 1:
+---------------------
+
+Here we are taking a counter variable j which starts from 1 and goes till n-1.
+and we sort the given array using the inbuilt array function Arrays.sory().
+and then we keep on comparing the numbers one by one using j and and when ever the number is no present or didn't match with j we return j. if the number is missing from the n-1 index to handel that case by returning j+1 value outside the loop.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+SOUTION NO 2:
+-------------
+classs solution{
+
+public static int missingNumber(int n, int[] arr) {
+        // code here
+        int a=0;
+        int sum=(n*(n+1))/2;
+        for(int i=0;i<n-1;i++){
+            a=a+arr[i];
+        }
+        return sum-a;
+    }
+}
+
+STEPS FOR SOLUYION 2:
+--------------------
+
+here we are finding the sum of arithmatic series which is from 1 to n-1(sum). We run loop from the 0 to n-1 and we find the sum of all elements of array(a).
+
+after that in the return statement we return the difference of the sum of arithmatic series and and sum of all the elemets of the array(sum-a) which gives the missing number.

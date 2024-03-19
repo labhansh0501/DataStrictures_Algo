@@ -1,0 +1,131 @@
+Given an array a of size N which contains elements from 0 to N-1, you need to find all the elements occurring more than once in the given array. Return the answer in ascending order. If no such element is found, return list containing [-1]. 
+
+Note: The extra space is only for the array to be returned. Try and perform all operations within the provided array. 
+
+Example 1:
+
+Input:
+N = 4
+a[] = {0,3,1,2}
+Output: 
+-1
+Explanation: 
+There is no repeating element in the array. Therefore output is -1.
+Example 2:
+
+Input:
+N = 5
+a[] = {2,3,1,2,3}
+Output: 
+2 3 
+Explanation: 
+2 and 3 occur more than once in the given array.
+Your Task:
+Complete the function duplicates() which takes array a[] and n as input as parameters and returns a list of elements that occur more than once in the given array in a sorted manner. 
+
+Expected Time Complexity: O(n).
+Expected Auxiliary Space: O(n).
+
+Constraints:
+1 <= N <= 105
+0 <= A[i] <= N-1, for each valid i
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+SOLUTION NO 1:
+--------------
+    for (int i = 0; i < n; i++) {
+        int index = arr[i] % n;
+        arr[index] += n;
+    }
+    
+    boolean flag = false;
+    for (int i = 0; i < n; i++) {
+        if ((arr[i]/n) > 1) {
+            result.add(i);
+            flag = true;
+        }
+    }
+    
+    if (!flag) {
+        result.add(-1);
+    }
+    
+    return result;
+
+}ArrayList<Integer> result = new ArrayList<>();
+    
+    for (int i = 0; i < n; i++) {
+        int index = arr[i] % n;
+        arr[index] += n;
+    }
+    
+    boolean flag = false;
+    for (int i = 0; i < n; i++) {
+        if ((arr[i]/n) > 1) {
+            result.add(i);
+            flag = true;
+        }
+    }
+    
+    if (!flag) {
+        result.add(-1);
+    }
+    
+    return result;
+
+}
+
+STEPS:
+------
+
+The code initializes an empty ArrayList called result to store the indices where the corresponding element in the input array occurs more than once.
+
+The code iterates over each element in the input array using a for loop.
+
+For each element, the code calculates its index in the array modulo the size of the array (n). This is done using the expression arr[i] % n. The modulo operation ensures that the index stays within the range of the array.
+
+The code then increments the element at the calculated index in the array by the size of the array (n). This is done using the expression arr[index] += n. This operation is a bit tricky. By incrementing the element at the calculated index by n, the code is effectively counting the occurrences of each element in the array. If an element occurs more than once, its count will be greater than n.
+
+The code then iterates over the array again to find the indices where the corresponding element occurs more than once. This is done using another for loop.
+
+For each element in the array, the code checks if the element's count (which is the element's value divided by n) is greater than 1. This is done using the expression (arr[i]/n) > 1. If the count is greater than 1, it means the element occurs more than once in the array.
+
+If the count of an element is greater than 1, the code adds the index of the element to the result ArrayList. This is done using the expression result.add(i).
+
+The code also keeps track of a boolean flag called flag. This flag is used to determine whether any element occurs more than once in the array. If no element occurs more than once, the flag remains false.
+
+After iterating over the array to find the indices where the corresponding element occurs more than once, the code checks the value of the flag. If the flag is still false, it means no element occurs more than once in the array. In this case, the code adds -1 to the result ArrayList to indicate that no such indices were found.
+
+Finally, the code returns the result ArrayList, which contains the indices where the corresponding element in the input array occurs more than once, or -1 if no such indices were found.
+
+
+SOLUTION NO 2:
+---------------
+class Solution {
+    public static ArrayList<Integer> duplicates(int arr[], int n) {
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        int[]  count =  new int[n];
+        
+        for(int i = 0; i<n;i++)
+        {
+            count[arr[i]]++;
+        }
+        
+        for(int i=0;i<n;i++)
+        {
+            if(count[i] > 1)
+            {
+                result.add(i);
+            }
+        }
+        
+        if(result.isEmpty())
+        {
+            result.add(-1);
+        }
+        return result;
+    }
+}
+
+

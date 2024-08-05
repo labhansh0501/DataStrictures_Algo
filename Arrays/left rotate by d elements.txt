@@ -90,3 +90,76 @@ void leftRotate(int[] arr, int n, int d) {
     for (int i = 0; i < d; i++)
         arr[n - d + i] = temp[i];
 }
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+SAME QUESTION BUT USING ARRAY AND ARRAYLIST 
+
+public class Solution 
+{
+
+	public static ArrayList<Integer> rotateArray(ArrayList<Integer> arr, int k)
+	{
+		int n= arr.size();
+		if(n==0)
+		return arr;
+		
+
+		// Ensuring k is within the bounds of the array length
+		
+			
+		k = k % n;
+		if(k < 0){
+			k +=n; //To handle naegative rotations//
+		}
+
+
+
+		//reversing the k element 
+		reverse (arr , 0 , k-1);
+
+		//reversing the rest of the element
+
+		reverse (arr , k, n-1);
+
+		//reverse the whole array
+		
+		reverse(arr, 0 , n-1)
+
+		return arr;
+	
+	}
+
+
+
+	private void  reverse (ArrayList<Integer> arr , start ,end )
+	{
+		while (start<end)
+		{
+			int temp = arr.get(start);
+			arr.set(start, arr.get(end));
+			arr.set(end , temp);
+			start ++;
+			end--;
+		}
+	}
+
+	
+
+}
+		
+t
+
+STEPS  : 
+
+
+Same as normal array but we have to keep in my mind that some things:
+		
+	1) arr.size() to know the length of the array
+	
+	2) arr.get() to get the element 
+	
+	3) arr.set() to add the element at a specific place 
+
+
